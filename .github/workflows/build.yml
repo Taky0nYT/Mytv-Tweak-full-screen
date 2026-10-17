@@ -3,26 +3,11 @@ on: [push, workflow_dispatch]
 jobs:
   build:
     runs-on: ubuntu-latest
+    container: 
+      image: ghcr.io/theos/theos:latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
-      - name: Install Dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y make git curl unzip clang libplist-dev libssl-dev libarchive-dev
-
-      - name: Setup Theos
-        run: |
-          git clone --recursive https://github.com/theos/theos.git $HOME/theos
-          curl -L https://github.com/theos/sdks/archive/master.zip -o sdks.zip
-          unzip -q sdks.zip
-          mkdir -p $HOME/theos/sdks
-          mv sdks-master/* $HOME/theos/sdks/
-          curl -L https://github.com/ProcursusTeam/ldid/releases/download/v2.1.5-procursus7/ldid_linux_x86_64 -o $HOME/theos/bin/ldid
-          chmod +x $HOME/theos/bin/ldid
-          echo "THEOS=$HOME/theos" >> $GITHUB_ENV
-          echo "$HOME/theos/bin" >> $GITHUB_PATH
 
       - name: Build Tweak
         run: |
