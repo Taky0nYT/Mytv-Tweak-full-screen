@@ -4,5 +4,6 @@ include $(THEOS)/makefiles/common.mk
 
 TWEAK_NAME = MyTVFullScreen
 MyTVFullScreen_FILES = Tweak.xm
+MyTVFullScreen_FRAMEWORKS = UIKit AVFoundation
 
 include $(THEOS)/makefiles/tweak.mk
