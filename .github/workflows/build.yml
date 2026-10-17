@@ -4,28 +4,19 @@ jobs:
   build:
     runs-on: macos-14
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Setup Theos and ldid
-        run: |
-          git clone --recursive https://github.com/theos/theos.git $HOME/theos
-          echo "THEOS=$HOME/theos" >> $GITHUB_ENV
-          echo "$HOME/theos/bin" >> $GITHUB_PATH
-          brew install ldid
-
-      - name: Build Tweak
-        run: |
-          make clean || true
-          make
-
-      - name: Collect Dylib
-        run: |
-          mkdir -p output
-          find . -name "*.dylib" -exec cp {} output/ \;
-
-     ` - name: Upload DylActionsib
-        uses: actions/upload-artifact@v`4
-        with:
-          name: MyTV-Aspect**Fill
-          path: output/
+    - uses: actions/checkout@v4
+    - run: |
+        git clone --recursive https://github.com/theos/theos.git $HOME/theos
+        echo "THEOS=$HOME/theos" >> $GITHUB_ENV
+        echo "$HOME/theos/bin" >> $GITHUB_PATH
+        brew install ldid
+    - run: |
+        make clean || true
+        make
+    - run: |
+        mkdir -p output
+        find . -name "*.dylib" -exec cp {} output/ \;
+    - uses: actions/upload-artifact@v4
+      with:
+        name: MyTV-AspectFill
+        path: output/
