@@ -2,12 +2,15 @@ name: Build Tweak
 on: [push, workflow_dispatch]
 jobs:
   build:
-    runs-on: ubuntu-latest
-    container: 
-      image: ghcr.io/theos/theos:latest
+    runs-on: macos-14
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      - name: Setup Theos
+        run: |
+          git clone --recursive https://github.com/theos/theos.git $HOME/theos
+          echo "THEOS=$HOME/theos" >> $GITHUB_ENV
 
       - name: Build Tweak
         run: |
