@@ -14,9 +14,8 @@ jobs:
         make clean || true
         make
     - run: |
-        mkdir -p output
-        find . -name "*.dylib" -exec cp {} output/ \;
+        cp .theos/obj/debug/*.dylib ./MyTVFullScreen.dylib
     - uses: actions/upload-artifact@v4
       with:
         name: MyTV-AspectFill
-        path: output/
+        path: MyTVFullScreen.dylib
